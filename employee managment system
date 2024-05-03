@@ -1,0 +1,98 @@
+
+print("\n")
+a= input("Enter the name of the organization: ") # Prompt user to enter the name of the organization
+print("Details of workers in", a) # Print the name of the organization
+workers = []
+
+#adding information of worker
+def add_information():
+    name = input("Enter worker's name: ")
+    while not name.isalpha():
+        print("Please enter only alphabets for the name.")
+        name = input("Enter worker's name: ")
+    
+    id_number = input("Enter worker's ID number: ")
+    
+    while True:
+        mobile_number = input("Enter worker's mobile number: ")
+        if not (mobile_number.isdigit() and len(mobile_number) == 10 and mobile_number != '0'*10):
+            print("Mobile number should have exactly 10 non-zero digits.")
+        else:
+            break
+    
+    while True:
+        year_of_joining = input("Enter worker's year of joining: ")
+        if not (year_of_joining.isdigit() and len(year_of_joining) == 4 and year_of_joining != '0'*4):
+            print("Year of joining should have exactly 4 non-zero digits.")
+        else:
+            break
+    
+    worker = {
+        'name': name,
+        'mobile_number': mobile_number,
+        'id_number': id_number,
+        'year_of_joining': year_of_joining
+    }
+    workers.append(worker)
+    print("Worker added successfully!")
+def search_worker():
+    search_term = input("Enter worker's name or ID number to search: ")
+    found = False
+    for worker in workers:
+        if search_term.lower() in worker['name'].lower() or search_term == worker['id_number']:
+            print("Worker found:")
+            print("Name:", worker['name'])
+            print("Mobile Number:", worker['mobile_number'])
+            print("ID Number:", worker['id_number'])
+            print("Year of Joining:", worker['year_of_joining'])
+            found = True
+    if not found:
+        print("Worker not found.")
+
+def remove_worker():#removeing worker
+    id_number = input("Enter the ID number of the worker to remove: ")
+    for worker in workers:
+        if worker['id_number'] == id_number:
+            workers.remove(worker)
+            print("Worker removed successfully!")
+            return
+    print("Worker with ID number {} not found.".format(id_number))
+
+def display_workers():#to display worker
+    if not workers:
+        print("No workers found.")
+    else:
+        print("Workers Information:")
+        for idx, worker in enumerate(workers, 1):
+            print("Worker {}:".format(idx))
+            print("Name:", worker['name'])
+            print("Mobile Number:", worker['mobile_number'])
+            print("ID Number:", worker['id_number'])
+            print("Year of Joining:", worker['year_of_joining'])
+            print()
+
+def main():
+    while True:
+        print("\n1. Add a Worker")
+        print("2. Remove a Worker")
+        print("3. Display the Workers")
+        print("4. Search for a Worker")
+        print("5. End")
+        choice = input("Enter option to be perform: ")
+
+        if choice == '1':
+            add_information()
+        elif choice == '2':
+            remove_worker()
+        elif choice == '3':
+            display_workers()
+        elif choice == '4':
+            search_worker()
+        elif choice == '5':
+            print("thank you")
+            break
+        else:
+            print("Invalid choice.")
+
+if __name__ == "__main__":
+    main()
